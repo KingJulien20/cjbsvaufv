@@ -10,7 +10,5 @@ public class Loc{
 		Occupied = false;
 	}
 
-	protected Loc(){
-		throw new NotImplementedException();
-	}
+	
 }
