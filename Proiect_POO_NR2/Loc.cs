@@ -5,10 +5,8 @@ public class Loc{
 	public bool Occupied{ get; set; }
 
 
-	public Loc(int spot){
+	public Loc(int spot, bool occupied){
 		Spot = spot;
 		Occupied = false;
 	}
-
-	
 }

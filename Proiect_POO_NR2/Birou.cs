@@ -1,5 +1,9 @@
 namespace Proiect_POO_NR2;
 
-public class Birou{
-	
+public class Birou : Loc
+{
+	public Birou(int spot, bool occupied) : base(spot, occupied){
+		Spot = spot;
+		Occupied = false;
+	}
 }
