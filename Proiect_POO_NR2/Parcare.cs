@@ -5,6 +5,12 @@ public class Parcare : Loc
 	
 	public Parcare(int spot, bool occupied) : base(spot, occupied){
 		Spot = spot;
-		Occupied = false;
+		Occupied = false; //status 
+	}
+
+	public override string ToString()
+	{
+		return $"Spot: {Spot}, Occupied: {(Occupied ? "Ocupat" : "Liber")}";
+
 	}
 }
