@@ -7,14 +7,16 @@ namespace Proiect_POO_NR2;
         public int Id { get; set; }
         private static List<User> users = new List<User>(); 
         private List<int> angajati = new List<int>();
+        private RolAngajat rolAngajat;//modificat
        
         public IReadOnlyList<int> Angajati => angajati.AsReadOnly();
         public static IReadOnlyList<User> Users => users.AsReadOnly();
 
-        public User(string name, int id)
+        public User(string name, int id, RolAngajat Ro)
         {
             Name = name;
             Id = id;
+            rolAngajat = Rol;//modificat
         }
         
         public static void AddUser(User user)
@@ -35,7 +37,7 @@ namespace Proiect_POO_NR2;
             var user = users.FirstOrDefault(u => u.Id == id);
             if (user != null)
             {
-                Console.WriteLine($"User found: ID: {user.Id}, Name: {user.Name}");
+                Console.WriteLine($"User found: ID: {user.Id}, Name: {user.Name}, Rol Angajat: {user.rolAngajat}");//modificat
             }
             else
             {
@@ -49,7 +51,7 @@ namespace Proiect_POO_NR2;
             Console.WriteLine("All Users:");
             foreach (var user in users)
             {
-                Console.WriteLine($"ID: {user.Id}, Name: {user.Name}");
+                Console.WriteLine($"ID: {user.Id}, Name: {user.Name}, Rol Angajat: {user.rolAngajat}");//modificat
             }
         }
         
