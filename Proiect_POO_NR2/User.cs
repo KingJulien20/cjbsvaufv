@@ -3,18 +3,21 @@ namespace Proiect_POO_NR2;
 
     public class User 
     {
-        public string Name { get; set; }
-        public int Id { get; set; }
+        private static HashSet<int> usedIDs = new HashSet<int>();
+        private static Random random = new Random();
+        private string Name { get; set; }
+        private int Id { get; set; }
         private static List<User> users = new List<User>(); 
         private List<int> angajati = new List<int>();
+        private static RolAngajat rolAngajat { get; set; }
        
         public IReadOnlyList<int> Angajati => angajati.AsReadOnly();
         public static IReadOnlyList<User> Users => users.AsReadOnly();
 
-        public User(string name, int id)
+        public User(string name)
         {
             Name = name;
-            Id = id;
+            Id = GenerateID();
         }
         
         public static void AddUser(User user)
@@ -49,7 +52,7 @@ namespace Proiect_POO_NR2;
             Console.WriteLine("All Users:");
             foreach (var user in users)
             {
-                Console.WriteLine($"ID: {user.Id}, Name: {user.Name}");
+                Console.WriteLine($"ID: {user.Id}, Name: {user.Name}, {rolAngajat}");
             }
         }
         
@@ -64,5 +67,14 @@ namespace Proiect_POO_NR2;
             {
                 Console.WriteLine($"Angajatul cu ID-ul {id} este deja adăugat.");
             }
+        }
+
+        public int GenerateID(){
+            int newID;
+            do{
+                newID = random.Next(1000, 9999);
+            }while(usedIDs.Contains(newID));
+            usedIDs.Add(newID);
+            return newID;
         }
     }

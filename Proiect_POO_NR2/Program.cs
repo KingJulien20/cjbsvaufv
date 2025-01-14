@@ -13,12 +13,10 @@
             {
                 Console.WriteLine("User Name: ");
                 string userName = Console.ReadLine();
-                Console.WriteLine("User ID: ");//modificare
-                int id = int.Parse(Console.ReadLine());
                 
                 Console.WriteLine("Select Role: \n 1: Employee\n 2: Manager\n 3: Admin");
                 RolAngajat role = (RolAngajat)(int.Parse(Console.ReadLine()) - 1);
-                User currentUser = new User(userName, id);
+                User currentUser = new User(userName);
                 User.AddUser(currentUser);
 
                 ReservationSystem system = new ReservationSystem(role, userName);
@@ -42,7 +40,8 @@
                         case "2":
                             Console.WriteLine("Enter spot number: ");
                             int spot = int.Parse(Console.ReadLine());
-                            system.AddReservation(spot);
+                            Reservation reserve = new Reservation(spot, userName);
+                            system.AddReservation(reserve);
                             break;
 
                         case "3":
@@ -50,12 +49,12 @@
                             break;//modificare
 
                         case "4":
-                            //nu merge deloc
+                            //merge 
                             Console.WriteLine("Enter reservation ID: ");
                             int resId = int.Parse(Console.ReadLine());
                             Console.WriteLine("Enter new spot number: ");
                             int newSpot = int.Parse(Console.ReadLine());
-                            system.ModifyReservation(resId, newSpot);
+                            system.ModifyReservation(newSpot, resId);
                             break;
 
                         case "5":

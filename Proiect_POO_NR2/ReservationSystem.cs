@@ -9,7 +9,7 @@ namespace Proiect_POO_NR2;
 
 public class ReservationSystem
 {
-	private List<Reservation> reservations = new List<Reservation>();
+	private static List<Reservation> reservations = new List<Reservation>();
 	private List<User> users = new List<User>();
 	private RolAngajat rolAngajat;
 	private string User;
@@ -22,7 +22,7 @@ public class ReservationSystem
 
 	public void View1Reservations(string user)//modificare
 	{
-		Console.WriteLine("These are all your reservations: ");
+		Console.WriteLine("These are all reservations you have access to: ");
 		foreach (var reservation in reservations)
 		{
 			if (reservation.ReservedBy == user || rolAngajat == RolAngajat.Manager || rolAngajat == RolAngajat.Admin)
@@ -32,15 +32,15 @@ public class ReservationSystem
 		}
 	}
 
-	public void AddReservation(int spotnumber)
+	public void AddReservation( Reservation reservation)
 	{
-		if (reservations.Exists(r => r.SpotNumber == spotnumber))
+		if (reservations.Exists(r => r.SpotNumber == reservation.SpotNumber))
 		{
 			Console.WriteLine("Reservation already exists");
 		}
 		else
 		{
-			reservations.Add(new Reservation { SpotNumber = spotnumber-1, ReservedBy = User });
+			reservations.Add(reservation);
 		}
 	}
 
@@ -49,8 +49,7 @@ public class ReservationSystem
 	public void ModifyReservation(int newspotnumber, int Id)
 	{
 		var rez = reservations.Find(rezervation => rezervation.ID == Id);
-		if (rez != null &&
-		    (rez.ReservedBy == User || rolAngajat == RolAngajat.Manager || rolAngajat == RolAngajat.Admin))
+		if (rez != null && (rez.ReservedBy == User || rolAngajat == RolAngajat.Manager || rolAngajat == RolAngajat.Admin))
 		{
 			Console.WriteLine("Choose another spotnumber: ");
 			rez.SpotNumber = newspotnumber;
@@ -89,7 +88,7 @@ public class ReservationSystem
 				{
 					if (!reservations.Exists(r => r.SpotNumber == i * 10 + j))
 					{
-						Console.Write(i * 10 + j + 1 + " ");
+						Console.Write(0 + " ");
 					}
 					else
 					{
@@ -109,7 +108,7 @@ public class ReservationSystem
 				{
 					if (!reservations.Exists(r => r.SpotNumber == i * 10 + j))
 					{
-						Console.Write(i * 10 + j + 1 + " ");
+						Console.Write(0 + " ");
 					}
 					else
 					{
