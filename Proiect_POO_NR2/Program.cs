@@ -8,17 +8,18 @@
             Console.WriteLine("Please press 1 to continue or 0 to exit."); //modificare
 
             int optiune1; //modificare
-            bool isValid = int.TryParse(Console.ReadLine(), out optiune1); //modificare
+            while(!int.TryParse(Console.ReadLine(), out optiune1) || optiune1 < 0 || optiune1 > 1) //modificare
+            {
+                Console.WriteLine("Invalid option. Please press 1 to continue or 0 to exit."); //modificare
+            }
             while (optiune1 != 0) //modificare
             {
                 Console.WriteLine("User Name: ");
                 string userName = Console.ReadLine();
-                Console.WriteLine("User ID: ");//modificare
-                int id = int.Parse(Console.ReadLine());
                 
                 Console.WriteLine("Select Role: \n 1: Employee\n 2: Manager\n 3: Admin");
                 RolAngajat role = (RolAngajat)(int.Parse(Console.ReadLine()) - 1);
-                User currentUser = new User(userName, id);
+                User currentUser = new User(userName, role);
                 User.AddUser(currentUser);
 
                 ReservationSystem system = new ReservationSystem(role, userName);
@@ -40,9 +41,13 @@
                             break;//modificare
 
                         case "2":
-                            Console.WriteLine("Enter spot number: ");
+                            Console.WriteLine("Enter Office number: ");
                             int spot = int.Parse(Console.ReadLine());
-                            system.AddReservation(spot);
+                            Console.WriteLine("Enter Parking number: ");
+                            int spot1 = int.Parse(Console.ReadLine());
+
+                            Reservation reserve = new Reservation(spot ,userName,spot1, role);
+                            system.AddReservation(reserve);
                             break;
 
                         case "3":
@@ -50,12 +55,12 @@
                             break;//modificare
 
                         case "4":
-                            //nu merge deloc
+                            //merge 
                             Console.WriteLine("Enter reservation ID: ");
                             int resId = int.Parse(Console.ReadLine());
                             Console.WriteLine("Enter new spot number: ");
                             int newSpot = int.Parse(Console.ReadLine());
-                            system.ModifyReservation(resId, newSpot);
+                            system.ModifyReservation(newSpot, resId);
                             break;
 
                         case "5":
@@ -85,8 +90,10 @@
 
                 } while (option != "9"); //modificare
 
-                Console.WriteLine("Please press 1 to continue or 0 to exit.");//modificare
-                isValid = int.TryParse(Console.ReadLine(), out optiune1);//modificare
+                Console.WriteLine("Please press 1 to continue or 0 to exit."); //modificare
+                while (!int.TryParse(Console.ReadLine(), out optiune1) || optiune1 < 0 || optiune1 > 1){
+                     Console.WriteLine("Invalid option. Please press 1 to continue or 0 to exit."); //modificare
+                }
             }
             
             Console.WriteLine("Exiting program...\nGoodbye!");//modificare

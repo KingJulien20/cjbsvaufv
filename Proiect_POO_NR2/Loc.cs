@@ -10,4 +10,8 @@ public abstract class Loc{
 		Occupied = false;
 	}
 	public abstract override string ToString();
+	
+	public abstract  string ToString1();
+	
+	public abstract  string ToString2();
 }

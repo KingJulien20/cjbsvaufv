@@ -12,5 +12,14 @@ public class Birou : Loc
 		return $"Spot: {Spot}, Occupied: {(Occupied ? "Ocupat" : "Liber")}";	
 	}
 	
+	public override string ToString1()
+	{
+		return $"Spot: {Spot}, Occupied: {(Occupied ? "Ocupat" : "Liber")}";	
+	}
+	
+	public override string ToString2()
+	{
+		return $"Spot: {Spot}, Occupied: {(Occupied ? "Ocupat" : "Liber")}";	
+	}
 	
 }
