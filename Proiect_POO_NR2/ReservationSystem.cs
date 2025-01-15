@@ -25,7 +25,7 @@ public class ReservationSystem
 		Console.WriteLine("These are all reservations you have access to: ");
 		foreach (var reservation in reservations)
 		{
-			if (reservation.ReservedBy == user || rolAngajat == RolAngajat.Manager || rolAngajat == RolAngajat.Admin)
+			if (reservation.ReservedBy == user || (rolAngajat == RolAngajat.Manager && reservation.RolAngajati != RolAngajat.Admin) || rolAngajat == RolAngajat.Admin)
 			{
 				Console.WriteLine(reservation);
 			}
@@ -34,7 +34,7 @@ public class ReservationSystem
 
 	public void AddReservation( Reservation reservation)
 	{
-		if (reservations.Exists(r => r.SpotNumber == reservation.SpotNumber))
+		if (reservations.Exists(r => r.OfficeNumber == reservation.OfficeNumber || r.ParkingNumber == reservation.ParkingNumber))
 		{
 			Console.WriteLine("Reservation already exists");
 		}
@@ -49,11 +49,27 @@ public class ReservationSystem
 	public void ModifyReservation(int newspotnumber, int Id)
 	{
 		var rez = reservations.Find(rezervation => rezervation.ID == Id);
-		if (rez != null && (rez.ReservedBy == User || rolAngajat == RolAngajat.Manager || rolAngajat == RolAngajat.Admin))
+		if (rez != null && (rez.ReservedBy == User || (rolAngajat == RolAngajat.Manager && rez.RolAngajati != RolAngajat.Admin) || rolAngajat == RolAngajat.Admin))
 		{
-			Console.WriteLine("Choose another spotnumber: ");
-			rez.SpotNumber = newspotnumber;
-			Console.WriteLine("The Reservation has been successfully modified.");
+			Console.WriteLine("Office or Parking number?");
+			string type = Console.ReadLine();
+			if(type == "Office")
+			{
+				Console.WriteLine("Choose another Office number: ");
+				rez.OfficeNumber = newspotnumber;
+			}
+			else if(type == "Parking")
+			{
+				Console.WriteLine("Choose another Parking number: ");
+				rez.ParkingNumber = newspotnumber;
+			}
+			else
+			{
+				Console.WriteLine("Invalid type");
+			}
+			
+		    Console.WriteLine("The Reservation has been successfully modified.");
+
 		}
 		else
 		{
@@ -65,7 +81,7 @@ public class ReservationSystem
 	{
 		var rez = reservations.Find(r => r.ID == Id);
 		if (rez != null &&
-		    (rez.ReservedBy == User || rolAngajat == RolAngajat.Manager || rolAngajat == RolAngajat.Admin))
+		    (rez.ReservedBy == User || (rolAngajat == RolAngajat.Manager && rez.RolAngajati != RolAngajat.Admin) || rolAngajat == RolAngajat.Admin))
 		{
 			reservations.Remove(rez);
 			Console.WriteLine("The reservation has been deleted.");
@@ -86,7 +102,7 @@ public class ReservationSystem
 			{
 				for (int j = 0; j < 10; j++)
 				{
-					if (!reservations.Exists(r => r.SpotNumber == i * 10 + j))
+					if (!reservations.Exists(r => r.ParkingNumber == i * 10 + j + 1))
 					{
 						Console.Write(0 + " ");
 					}
@@ -106,7 +122,7 @@ public class ReservationSystem
 			{
 				for (int j = 0; j < 10; j++)
 				{
-					if (!reservations.Exists(r => r.SpotNumber == i * 10 + j))
+					if (!reservations.Exists(r => r.OfficeNumber == i * 10 + j + 1))
 					{
 						Console.Write(0 + " ");
 					}

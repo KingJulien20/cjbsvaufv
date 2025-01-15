@@ -6,19 +6,34 @@ public class Reservation{
 	private static Random random = new Random();
 	public int ID{get; private set;}
 	
-	public int SpotNumber { get; set; }
+	public int ParkingNumber { get; set; }
+
+	public int OfficeNumber { get; set; }
+
 	public string ReservedBy { get; set; }
-	public RolAngajat RolAngajat { get; set; }
+	public RolAngajat RolAngajati { get; set; }
 
 
-	public Reservation( int spotNumber, string reservedBy){
+	public Reservation( int officeNumber, string reservedBy, int parkingNumber, RolAngajat rolAngajati){
 		ID = GenerateID();
-		SpotNumber = spotNumber;
+		ParkingNumber = parkingNumber;
 		ReservedBy = reservedBy;
+		OfficeNumber = officeNumber;
+		RolAngajati = rolAngajati;
 	}
 
+	
+	
 	public override string ToString(){
-		return $"ID: {ID}, SpotNumber: {SpotNumber}, ReservedBy: {ReservedBy}, {RolAngajat}";
+		if(OfficeNumber == 0){
+			return $"ID: {ID}, Parking Number : {ParkingNumber}, ReservedBy: {ReservedBy}";
+		}
+		else if(ParkingNumber == 0){
+			return $"ID: {ID}, Office Number: {OfficeNumber}, ReservedBy: {ReservedBy}";
+		}
+		else{
+			return $"ID: {ID}, Office Number: {OfficeNumber}, Parking Number : {ParkingNumber}, ReservedBy: {ReservedBy}";
+		}
 	}
 
 	public int GenerateID(){
